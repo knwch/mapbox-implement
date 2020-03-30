@@ -22,6 +22,14 @@ export class MapComponent implements OnInit {
       zoom: 13
     });    // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl());
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true
+      })
+    );
   }
 
 }
