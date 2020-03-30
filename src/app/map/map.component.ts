@@ -1,6 +1,7 @@
 import { environment } from '../../environments/environment';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 @Component({
   selector: 'app-map',
@@ -21,7 +22,11 @@ export class MapComponent implements OnInit {
       center: [100.50144, 13.75398], // Longitude, Latitude
       zoom: 13
     });    // Add map controls
-    this.map.addControl(new mapboxgl.NavigationControl());
+    this.map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken
+      })
+    );
     this.map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
@@ -30,6 +35,8 @@ export class MapComponent implements OnInit {
         trackUserLocation: true
       })
     );
+    this.map.addControl(new mapboxgl.NavigationControl());
+
   }
 
 }
